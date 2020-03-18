@@ -1,0 +1,7 @@
+{
+  "name": "escape",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
