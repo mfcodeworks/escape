@@ -1,8 +1,18 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "escape",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
+  "appId": "com.ulfurmoon.escape",
+  "appName": "Escape",
   "webDir": "www",
-  "cordova": {}
+  "npmClient": "npm",
+  "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
+  "windowsAndroidStudioPath": "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
+  "bundledWebRuntime": false,
+  "cordova": {},
+  "server": {
+    "hostname": "localhost",
+    "iosScheme": "https",
+    "androidScheme": "https"
+  },
+  "android": {
+    "webContentsDebuggingEnabled": true
+  }
 }

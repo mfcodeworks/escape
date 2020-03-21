@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "nr-escape": {
+      "hosting": {
+        "app": [
+          "nr-escape"
+        ]
+      }
+    }
+  }
+}
