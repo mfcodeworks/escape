@@ -1,0 +1,47 @@
+/* Repost Scaling & Colouring */
+.mat-card.repost {
+    max-height: 250px;
+}
+.mat-card-content img:not(.mat-list-avatar) {
+    object-fit: cover;
+    max-height: 192px;
+    border-radius: 5px;
+}
+:not(body.dark-theme) .mat-card {
+    background-color: #ccc;
+}
+
+/* Main Post Sizing */
+.post-username-text {
+    margin-right: 5px;
+}
+.post-image {
+    width: 100%;
+    margin: 0px;
+}
+.post-datetime {
+    color: #888;
+    font-size: 14px;
+    margin-left: 15px;
+}
+.text-post-container {
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    justify-content: center;
+	min-height: 200px;
+	height: auto;
+    text-align: center;
+}
+.text-post {
+    display: -webkit-box;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: x-large;
+}
+.text-post-concat {
+    -webkit-line-clamp: 5;
+}

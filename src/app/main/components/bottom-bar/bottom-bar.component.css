@@ -1,0 +1,15 @@
+.bottom-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+}
+@media (min-width: 992px) {
+    .bottom-bar {
+        min-width: 100vw;
+        margin-left: calc(-50vw/2);
+    }
+}
+.active {
+    font-weight: bold;
+}

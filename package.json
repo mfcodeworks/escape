@@ -31,10 +31,13 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "~9.0.7",
+    "@angular/cdk": "^9.1.3",
     "@angular/common": "~9.0.7",
     "@angular/core": "~9.0.7",
     "@angular/fire": "^5.4.2",
     "@angular/forms": "~9.0.7",
+    "@angular/material": "^9.1.3",
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
@@ -47,8 +50,12 @@
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
+    "@ionic/pwa-elements": "^1.5.1",
+    "angular-mentions": "^1.1.6",
     "bootstrap": "^4.4.1",
     "core-js": "^2.5.4",
+    "crypto-js": "^4.0.0",
+    "easyqrcodejs": "^3.5.0",
     "electron-push-receiver": "^2.1.3",
     "firebase": ">= 5.5.7 <8",
     "localforage": "^1.7.3",
@@ -67,9 +74,10 @@
     "@capacitor/cli": "1.5.1",
     "@ionic/angular-toolkit": "^2.1.1",
     "@ionic/cli": "^6.3.0",
+    "@types/crypto-js": "^3.1.43",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.12.30",
     "codelyzer": "^5.1.2",
     "cpx": "^1.5.0",
     "electron-builder": "^22.4.1",
@@ -88,6 +96,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "^3.7.5"
+  },
+  "browser": {
+    "crypto": false
   },
   "description": "An Ionic project"
 }

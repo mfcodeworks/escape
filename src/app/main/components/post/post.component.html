@@ -1,0 +1,38 @@
+<!-- App Top Bar -->
+<app-top-bar></app-top-bar>
+
+<!-- Container -->
+<div class="min-h-100">
+    <mat-list *ngIf="this.post" class="mb-5">
+        <app-post-view
+            [post]=post
+            [preview]=false
+            (deleted)="location.back()"></app-post-view>
+    </mat-list>
+
+    <!-- Comment Input -->
+    <!-- TODO: Re-implement mentions -->
+    <div #commentForm class="app-background-color comment-form w-100 px-2">
+        <mat-form-field appearance="standard" class="w-100" style="top: -8px;">
+            <mat-label>Comment&hellip;</mat-label>
+            <ng-template #mentionListTemplate let-item="item">
+                <strong>{{item.label}}</strong>
+            </ng-template>
+            <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="2"
+                #comment
+                [disabled]="sending"></textarea>
+            <!-- Send comment to server -->
+            <mat-icon matSuffix (click)="sending ? null: postComment()">
+                <i #commentButton
+                    class="fas"
+                    [class.fa-paper-plane]="!sending"
+                    [class.fa-spinner]="sending"
+                    [class.fa-spin]="sending"></i>
+            </mat-icon>
+        </mat-form-field>
+    </div>
+</div>

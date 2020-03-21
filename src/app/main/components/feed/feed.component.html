@@ -1,0 +1,21 @@
+<!-- App Top Bar -->
+<app-top-bar></app-top-bar>
+
+<!-- TODO: Infinite scroll Ionic -->
+<div class="min-h-100">
+    <mat-list *ngFor="let post of posts">
+        <!-- Posts -->
+        <app-post-view
+            [post]=post
+            [preview]=true
+            (deleted)="removePost($event)"></app-post-view>
+        <mat-divider class="mt-3 mb-1"></mat-divider>
+    </mat-list>
+
+    <span *ngIf="!posts.length">
+        <p class="mat-body error-placeholder mt-4">
+            It doesn't look like there's anything here.<br>
+            Try following some more active accounts?
+        </p>
+    </span>
+</div>

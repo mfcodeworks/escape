@@ -1,0 +1,14 @@
+<!-- App Top Bar -->
+<mat-toolbar class="top-bar mat-elevation-z2" [class.app-background-color]="!isDark" color="primary" [routerLink]="['/search']">
+    <i class="ti-search ml-3 mr-2" [class.icon-black]="!isDark"></i> <span [class.text-black]="!isDark">Search</span>
+    <div class="top-bar-logo logo mr-0"></div>
+</mat-toolbar>
+
+<div class="min-h-100">
+    <!-- Recommendations grid -->
+    <!-- TODO: Infinite Scroll -->
+    <app-post-preview-grid
+        *ngIf="recommendations.length"
+        [posts]=recommendations></app-post-preview-grid>
+    <p *ngIf="!recommendations.length" class="mat-body error-placeholder mt-4">We couldn't find anything, is this thing turned on?</p>
+</div>

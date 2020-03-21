@@ -1,0 +1,10 @@
+.comment-form {
+    height: 64px;
+    bottom: 64px !important;
+    position: fixed;
+}
+@media (max-width: 599px) {
+    .comment-form {
+        bottom: 56px !important;
+    }
+}
