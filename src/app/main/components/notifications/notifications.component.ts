@@ -70,7 +70,7 @@ export class NotificationsComponent implements OnInit {
         return this.followRequests.filter((r: any) => r.followingUser.id !== id);
     }
 
-    fetchMoreNotifications(): void {
+    fetchMoreNotifications(e: any): void {
         console.log('Fetching more notifications now, offset id:', this.notifications[this.notifications.length - 1].id);
         this.backend.getUserNotifications(this.notifications[this.notifications.length - 1].id).subscribe(notifications => {
             console.log(notifications);

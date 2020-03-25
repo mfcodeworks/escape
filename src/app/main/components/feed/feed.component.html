@@ -1,8 +1,8 @@
 <!-- App Top Bar -->
 <app-top-bar></app-top-bar>
 
-<!-- TODO: Infinite scroll Ionic -->
-<div class="min-h-100">
+<!-- Infinite scroll content -->
+<ion-content [fullscreen]="true">
     <mat-list *ngFor="let post of posts">
         <!-- Posts -->
         <app-post-view
@@ -18,4 +18,11 @@
             Try following some more active accounts?
         </p>
     </span>
-</div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMorePosts($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

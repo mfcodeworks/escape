@@ -24,6 +24,9 @@ export class RecommendationsComponent implements OnInit {
         private backend: BackendService
     ) {}
 
+    // TODO: Use BehaivourSubject and shift to async pipe
+    // BehaivourSubject -> MergeMap API (offset, limit) -> map local array with concat
+    // If fetched < limit, e.target.disabled = true
     ngOnInit() {
         // Get recommendations from route resolver data
         this.route.data.subscribe((data) => {
@@ -43,8 +46,11 @@ export class RecommendationsComponent implements OnInit {
         });
     }
 
-    fetchMoreRecommendations(): void {
-        if (this.fetchedAllrecommendations || this.fetchingRecommentdations) return;
+    fetchMoreRecommendations(e: any): void {
+        if (this.fetchedAllrecommendations) {
+            e.target.disabled = true;
+            return;
+        }
 
         const notIn = this.recommendations.map(r => r.id);
 
@@ -52,14 +58,18 @@ export class RecommendationsComponent implements OnInit {
         this.fetchingRecommentdations = true;
 
         this.backend.getRecommendations(notIn).subscribe(recommendations => {
+            // Set fetched all
             this.fetchedAllrecommendations = !recommendations || !recommendations.length
 
+            // Update posts
             this.recommendations = Array.prototype.concat(this.recommendations, this.shuffle(recommendations));
             this.cache.store('recommendations', this.recommendations);
             console.log(this.recommendations);
+
+            // Set state
             this.fetchingRecommentdations = false;
-        },
-        () => this.fetchingRecommentdations = false);
+            e.target.complete();
+        }, () => this.fetchingRecommentdations = false);
     }
 
     shuffle(a: Array<any>): Array<any> {

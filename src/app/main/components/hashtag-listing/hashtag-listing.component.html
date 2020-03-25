@@ -1,11 +1,12 @@
-<!-- App Top Bar -->
-<mat-toolbar class="top-bar mat-elevation-z2" [class.app-background-color]="!isDark" color="primary">
+<!-- App Top Bar TODO: Add title -->
+<app-top-bar></app-top-bar>
+
+<!-- <mat-toolbar class="top-bar mat-elevation-z2" [class.app-background-color]="!isDark" color="primary">
     <span class="ml-3 mr-2" [class.text-black]="!isDark">#{{hashtag}}</span>
     <div class="top-bar-logo logo mr-0"></div>
-</mat-toolbar>
+</mat-toolbar> -->
 
-<!-- TODO: Infinite Scroll -->
-<div class="min-h-100">
+<ion-content [fullscreen]="true">
     <!-- Recommendations grid -->
     <mat-tab-group>
         <mat-tab label="Recent">
@@ -15,4 +16,11 @@
             <app-post-preview-grid [posts]=posts.top></app-post-preview-grid>
         </mat-tab>
     </mat-tab-group>
-</div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMoreResults($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

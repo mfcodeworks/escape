@@ -2,7 +2,7 @@
 <app-top-bar></app-top-bar>
 
 <!-- Container -->
-<div class="min-h-100">
+<ion-content [fullscreen]="true">
     <mat-list *ngIf="this.post" class="mb-5">
         <app-post-view
             [post]=post
@@ -35,4 +35,4 @@
             </mat-icon>
         </mat-form-field>
     </div>
-</div>
+</ion-content>

@@ -26,103 +26,160 @@ import {BlockedProfilesResolver} from './resolvers/blocked-profiles.resolver';
 import {ProfilePostsResolver} from './resolvers/profile-posts.resolver';
 import {BottomBarComponent} from './components/bottom-bar/bottom-bar.component';
 
+// FIXME: Must enter site from '/' or router takes path '/x' as the root path
+// so all tabs become '/x/page'
 export const routes: Routes = [
     {
-        path: '',
+        path: 'app',
         component: BottomBarComponent,
         canActivateChild: [SignedInGuard],
         children: [
             {
                 path: 'feed',
-                component: FeedComponent,
-                resolve: {posts: FeedResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: FeedComponent,
+                    resolve: {posts: FeedResolver},
+                    // runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'recommendations',
-                component: RecommendationsComponent,
-                resolve: {recommendations: RecommendationsResolver},
-                runGuardsAndResolvers: 'always'
+                children:[{
+                    path: '',
+                    component: RecommendationsComponent,
+                    resolve: {recommendations: RecommendationsResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'search',
-                component: SearchComponent,
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: SearchComponent,
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'hashtag/:hashtag',
-                component: HashtagListingComponent,
-                resolve: {posts: HashtagResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: HashtagListingComponent,
+                    resolve: {posts: HashtagResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'new-post',
-                component: NewPostComponent,
-                resolve: {repost: NewPostResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: NewPostComponent,
+                    resolve: {repost: NewPostResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'post/:postId',
-                component: PostComponent,
-                resolve: {post: PostResolver },
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: PostComponent,
+                    resolve: {post: PostResolver },
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'notifications',
-                component: NotificationsComponent,
-                resolve: {notifications: NotificationsResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: NotificationsComponent,
+                    resolve: {notifications: NotificationsResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'profile/:profile',
-                component: ProfileComponent,
-                resolve: {
-                    profile: ProfileResolver,
-                    posts: ProfilePostsResolver
-                },
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileComponent,
+                    resolve: {
+                        profile: ProfileResolver,
+                        posts: ProfilePostsResolver
+                    },
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'profile/:profile/edit',
-                component: ProfileEditComponent,
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileEditComponent,
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'profile/:profile/following',
-                component: ProfileListComponent,
-                resolve: {profiles: FollowingResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileListComponent,
+                    resolve: {profiles: FollowingResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'profile/:profile/followers',
-                component: ProfileListComponent,
-                resolve: {profiles: FollowersResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileListComponent,
+                    resolve: {profiles: FollowersResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'settings',
-                component: SettingsComponent,
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: SettingsComponent,
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'following',
-                component: ProfileListComponent,
-                resolve: {profiles: FollowingResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileListComponent,
+                    resolve: {profiles: FollowingResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'followers',
-                component: ProfileListComponent,
-                resolve: {profiles: FollowersResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileListComponent,
+                    resolve: {profiles: FollowersResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
             },
             {
                 path: 'blocked',
-                component: ProfileListComponent,
-                resolve: {profiles: BlockedProfilesResolver},
-                runGuardsAndResolvers: 'always'
+                children: [{
+                    path: '',
+                    component: ProfileListComponent,
+                    resolve: {profiles: BlockedProfilesResolver},
+                    runGuardsAndResolvers: 'always'
+                }]
+            },
+            {
+                path: '',
+                redirectTo: '/app/feed',
+                pathMatch: 'full'
             }
         ]
+    },
+    {
+        path: '',
+        redirectTo: '/app/feed',
+        pathMatch: 'full'
     }
 ];
 

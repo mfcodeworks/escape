@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { SignedInGuard } from './shared/guards/signed-in.guard';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
     {
@@ -11,7 +12,7 @@ const routes: Routes = [
     {
         path: '',
         loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
-    },
+    }
     // {
     //     path: '**',
     //     component: NotFound404Component
@@ -19,17 +20,11 @@ const routes: Routes = [
 ];
 
 const options: ExtraOptions = {
-    useHash: false,
-    scrollPositionRestoration: 'enabled',
-    anchorScrolling: 'enabled',
-    onSameUrlNavigation: 'reload',
     preloadingStrategy: PreloadAllModules
 };
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, options)
-  ],
+  imports: [RouterModule.forRoot(routes, options)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -22,6 +22,9 @@ export class FeedComponent implements OnInit {
         private backend: BackendService
     ) {}
 
+    // TODO: Use BehaivourSubject and shift to async pipe
+    // BehaivourSubject -> MergeMap API (offset, limit) -> map local array with concat
+    // If fetched < limit, e.target.disabled = true
     ngOnInit() {
         // Get posts from route resolver data
         this.route.data.subscribe((data) => {
@@ -30,20 +33,26 @@ export class FeedComponent implements OnInit {
         });
     }
 
-    fetchMorePosts(): void {
-        if (this.fetchingPosts || this.fetchedAllPosts) return;
+    fetchMorePosts(e: any): void {
+        if (this.fetchedAllPosts) {
+            e.target.disabled = true;
+            return;
+        }
 
         this.fetchingPosts = true;
 
         this.backend.getUserFeed(this.posts[this.posts.length - 1].id).subscribe(posts => {
+            // Set fetched all
             this.fetchedAllPosts = posts.length < 30;
-            if (!posts) return;
 
+            // Update posts
             this.posts = Array.prototype.concat(this.posts, posts);
             this.cache.store('feed', this.posts);
+
+            // Se state
             this.fetchingPosts = false;
-        },
-        () => this.fetchingPosts = false);
+            e.target.complete();
+        }, () => this.fetchingPosts = false);
     }
 
     removePost(id: number): void {

@@ -21,6 +21,9 @@ export class HashtagListingComponent implements OnInit {
         private backend: BackendService
     ) { }
 
+    // TODO: Use BehaivourSubject and shift to async pipe
+    // BehaivourSubject -> MergeMap API (offset, limit) -> map local array with concat
+    // If fetched < limit, e.target.disabled = true
     ngOnInit() {
         // Get current hashtag
         this.route.paramMap.subscribe(map => {
@@ -35,8 +38,11 @@ export class HashtagListingComponent implements OnInit {
         });
     }
 
-    fetchMoreResults(): void {
-        if (this.fetchingLists) return;
+    fetchMoreResults(e: any): void {
+        if (this.fetchedAll) {
+            e.target.disabled = true;
+            return;
+        }
 
         // Exclude posts that are already fetched
         const topNotIn = this.posts.top.map(r => r.id);
@@ -47,14 +53,18 @@ export class HashtagListingComponent implements OnInit {
         // Get more posts
         console.log('Fetching more posts now, excluding id\'s:', Array.prototype.concat(topNotIn, recentNotIn));
         this.backend.search(this.hashtag, 'hashtag', topNotIn, recentNotIn).subscribe((results: any) => {
+            // Set fetched all
             this.fetchedAll = !results.top.length && !results.recent.length;
 
+            // Update posts
             this.posts.top = Array.prototype.concat(this.posts.top, results.top);
             this.posts.recent = Array.prototype.concat(this.posts.recent, results.recent);
             this.cache.store(`hashtag-${this.hashtag}`, this.posts);
             console.log(this.posts);
+
+            // Set state
             this.fetchingLists = false;
-        },
-        () => this.fetchingLists = false);
+            e.target.complete();
+        }, () => this.fetchingLists = false);
     }
 }

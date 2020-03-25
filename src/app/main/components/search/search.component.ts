@@ -27,7 +27,6 @@ export class SearchComponent implements AfterViewInit  {
     constructor(
         private backend: BackendService,
         private cd: ChangeDetectorRef,
-        private dark: DarkThemeService,
         private cache: CacheService
     ) {}
 
@@ -77,11 +76,6 @@ export class SearchComponent implements AfterViewInit  {
                 },
                 (error: any) => console.warn(error)
             );
-        });
-
-        this.dark.isDarkMode()
-        .subscribe((mode: boolean) => {
-            this.isDark = mode;
         });
     }
 }
