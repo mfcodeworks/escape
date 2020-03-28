@@ -1,16 +1,9 @@
-import { Component, AfterViewInit , ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import {
-  debounceTime,
-  map,
-  distinctUntilChanged,
-  filter
-} from 'rxjs/operators';
+import { Component, AfterViewInit , ViewChild } from '@angular/core';
 
 import { Profile } from '../../core/profile';
 import { BackendService } from '../../../services/backend/backend.service';
-import { DarkThemeService } from '../../../services/dark-theme/dark-theme.service';
 import { CacheService } from '../../../services/cache/cache.service';
+import { IonSearchbar } from '@ionic/angular';
 
 @Component({
     selector: 'app-search',
@@ -18,7 +11,7 @@ import { CacheService } from '../../../services/cache/cache.service';
     styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements AfterViewInit  {
-    @ViewChild('searchInput', { static: false }) searchInput: ElementRef;
+    @ViewChild('searchInput', { static: false }) searchInput: IonSearchbar;
     profiles: Profile[] = [];
     hashtags: Array<any> = [];
     loading = false;
@@ -26,56 +19,42 @@ export class SearchComponent implements AfterViewInit  {
 
     constructor(
         private backend: BackendService,
-        private cd: ChangeDetectorRef,
         private cache: CacheService
     ) {}
 
     ngAfterViewInit() {
-        // Set search focus with change detection
-        this.cd.detectChanges();
-        this.searchInput.nativeElement.focus();
-        this.cd.detectChanges();
+        // Set search focus
+        this.searchInput.setFocus();
+    }
 
-        // On user input do pipe
-        fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-            // Get input
-            map((event: any) => {
-                return event.target.value;
-            }),
+    doSearch(ev: CustomEvent): void {
+        // Set new search
+        console.log('New search', ev);
+        const search = ev.detail.value;
 
-            // Filter input, at least 2 characters
-            filter((res) => {
-                return res.length > 1;
-            }),
+        // Filter search
+        if (search.length < 2) {
+            return;
+        }
 
-            // Wait 1 second after user finished
-            debounceTime(800),
+        // Set query as loading
+        this.loading = true;
 
-            // Don't requery unless input changes
-            distinctUntilChanged()
+        // // Get profile results
+        this.backend.search(search).subscribe(
+            (result: any) => {
+                this.cache.store(`search-${search}`, result);
 
-        // After pass through pipe do search
-        ).subscribe((search: string) => {
-            // Set query as loading
-            this.loading = true;
+                // Reference results
+                this.profiles = result.users;
 
-            // Get profile results
-            this.backend.search(search).subscribe(
-                (result: any) => {
-                    this.cache.store(`search-${search}`, result);
+                // Order hashtags as shortest (closest match) first
+                this.hashtags = result.hashtags.sort((a: any, b: any) => a.localeCompare(b));
+                console.log(result);
 
-                    // Reference results
-                    this.profiles = result.users;
-
-                    // Order hashtags as shortest (closest match) first
-                    this.hashtags = result.hashtags.sort((a: any, b: any) => a.localeCompare(b));
-                    console.log(result);
-
-                    // Set loading complete
-                    this.loading = false;
-                },
-                (error: any) => console.warn(error)
-            );
-        });
+                // Set loading complete
+                this.loading = false;
+            }, (error: any) => console.warn(error)
+        );
     }
 }

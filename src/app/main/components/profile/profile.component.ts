@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,7 +36,7 @@ export class ProfileDialogComponent {
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit, AfterViewInit {
+export class ProfileComponent implements OnInit {
     profile: Profile = null;
     posts: Post[] = [];
     topBarHeight = 56;
@@ -65,7 +65,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         private router: Router,
         private user: UserService,
         private backend: BackendService,
-        public dark: DarkThemeService,
         public auth: AuthService,
         private cache: CacheService,
         public dialog: MatDialog
@@ -88,12 +87,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
             console.log(this.profile);
         });
 
-        // Set dark mode option
-        this.dark.isDarkMode()
-        .subscribe((mode: boolean) => {
-            this.isDark = mode;
-        });
-
         // Change options with debounce to prevent mistakes
         this.privateAccount.valueChanges
             .pipe(debounceTime(1200))
@@ -102,12 +95,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         this.displayLikes.valueChanges
             .pipe(debounceTime(1200))
             .subscribe(() => this.updateSettings());
-    }
-
-    ngAfterViewInit(): void {
-        // Get toolbar height
-        const toolbar = <HTMLElement>document.querySelector('mat-toolbar.top-bar');
-        this.topBarHeight = toolbar.offsetHeight;
     }
 
     isFollowing() {

@@ -34,26 +34,29 @@
 // @import "assets/css/theme.scss";
 
 /* Remove Scrollbars Globally */
-* {
-    -ms-overflow-style: none;  // IE 10+
-    scrollbar-width: none;  // Firefox
-    scroll-behavior: smooth;
-}
-::-webkit-scrollbar, *::-webkit-scrollbar {
-    display: none;
-}
-ion-content {
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;  // IE 10+
-    scrollbar-width: none;  // Firefox
-    scroll-behavior: smooth;
+:root {
+    * {
+        -ms-overflow-style: none;  // IE 10+
+        scrollbar-width: none;  // Firefox
+        scroll-behavior: smooth;
+    }
+    ::-webkit-scrollbar, *::-webkit-scrollbar {
+        display: none;
+    }
+    ion-content {
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;  // IE 10+
+        scrollbar-width: none;  // Firefox
+        scroll-behavior: smooth;
 
-    &::-webkit-scrollbar {
-        display: none; // Safari and Chrome
+        &::-webkit-scrollbar {
+            display: none; // Safari and Chrome
+        }
     }
 }
 
+/* UI Improvement */
 *, *:focus, *:active {
     /* Remove accessibility outline */
     // outline: none !important;
@@ -75,6 +78,7 @@ ion-content {
     // -ms-user-select: none;
     // user-select: none;
     /* Optimize image view */
+    image-rendering: optimizeQuality;
     image-rendering: -moz-crisp-edges; /* Firefox */
     image-rendering: -o-crisp-edges; /* Opera */
     image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
@@ -82,6 +86,7 @@ ion-content {
     -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
 }
 
+/* Generic body options */
 html, body {
     height: 100%;
     margin: 0;
@@ -89,10 +94,9 @@ html, body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-card-header-text{
-    width: 100%;
-}
-.logo-branded, .logo {
+/* Logo Options */
+.logo-branded,
+.logo {
     background-size: contain;
     background-repeat: no-repeat;
     min-width: 70px;
@@ -104,19 +108,26 @@ html, body {
 .logo-branded {
     background-image: url("assets/images/Logo_Transparent-scaledown.png") !important;
 }
-.dark-theme .logo-branded {
-    background-image: url("assets/images/Logo_Transparent_White-scaledown.png") !important;
+@media (prefers-color-scheme: dark) {
+    .logo {
+        background-image: url("assets/images/logo-white.png");
+    }
+    .logo-branded {
+        background-image: url("assets/images/Logo_Transparent_White-scaledown.png") !important;
+    }
+    .ptr--icon,
+    .ptr--text {
+        color: rgba(250, 250, 250, 0.87) !important;
+    }
 }
-.dark-theme .logo {
-    background-image: url("assets/images/logo-white.png");
-}
+
+/* Generic Styling */
 .ptr--icon,
 .ptr--text {
     color: rgba(0, 0, 0, 0.87) !important;
 }
-.dark-theme .ptr--icon,
-.dark-theme .ptr--text {
-    color: rgba(250, 250, 250, 0.87) !important;
+.mat-card-header-text{
+    width: 100%;
 }
 .text-black,
 .icon-black {
@@ -130,28 +141,11 @@ html, body {
     height: 40px !important;
     border-radius: 50%;
 }
-.ta-c {
-    text-align: center !important;
-}
 .error-placeholder {
     text-align: center;
     font-style: italic;
     color: #888;
 }
-.bottom-bar {
-    box-shadow:
-        0 -1px 1px -2px rgba(0,0,0,.2),
-        0 -1px 2px 0 rgba(0,0,0,.14),
-        0 -1px 5px 0 rgba(0,0,0,.12)
-}
 .comment-form-input .mat-form-field-wrapper .mat-form-field-flex {
     padding-top: 0;
-}
-.min-h-100 {
-    min-height: calc(100vh - 128px) !important;
-}
-@media (max-width: 599px) {
-    .min-h-100 {
-        min-height: calc(100vh - 112px) !important;
-    }
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MentionModule } from 'angular-mentions';
 import { IonicModule } from '@ionic/angular';
 
 import { Routing } from './main.routing';
@@ -28,29 +27,30 @@ import { PostViewComponent } from './components/post/post-view/post-view.compone
 import { ProfileComponent, ProfileDialogComponent } from './components/profile/profile.component';
 import { RecommendationsComponent } from './components/recommendations/recommendations.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { DateDiffPipe } from './pipes/date-diff.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { HashtagListingComponent } from './components/hashtag-listing/hashtag-listing.component';
-import { RouteTransformerDirective } from '../shared/directives/route-transformer.directive';
-import { TagPipe } from './pipes/tag.pipe';
 import { PostLikesComponent } from './components/post/post-view/post-likes/post-likes.component';
 import { ProfileDisplayComponent } from './components/profile/profile-display/profile-display.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
-import { LongholdDirective } from '../shared/directives/longhold.directive';
 import { ProfileListComponent, BlockedDialogComponent } from './components/profile-list/profile-list.component';
 import { FollowersResolver } from './resolvers/followers.resolver';
 import { FollowingResolver } from './resolvers/following.resolver';
 import { BlockedProfilesResolver } from './resolvers/blocked-profiles.resolver';
 import { ProfilePostsResolver } from './resolvers/profile-posts.resolver';
 import { FloatingHeartComponent } from './components/floating-heart/floating-heart.component';
+// TODO: Shift below to shared module exports
+import { DateDiffPipe } from './pipes/date-diff.pipe';
+import { TagPipe } from './pipes/tag.pipe';
+import { LongholdDirective } from '../shared/directives/longhold.directive';
+import { RouteTransformerDirective } from '../shared/directives/route-transformer.directive';
+import { HideToolbarDirective } from '../shared/directives/hide-toolbar.directive';
 
 @NgModule({
     imports: [
         IonicModule,
         MaterialModule,
         CommonModule,
-        // MentionModule,
-        // OverlayModule,
+        OverlayModule,
         ReactiveFormsModule,
         Routing
     ],
@@ -83,7 +83,8 @@ import { FloatingHeartComponent } from './components/floating-heart/floating-hea
         ProfileEditComponent,
         LongholdDirective,
         ProfileListComponent,
-        FloatingHeartComponent
+        FloatingHeartComponent,
+        HideToolbarDirective
     ],
     entryComponents: [
         CommentDialogComponent,

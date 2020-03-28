@@ -1,8 +1,12 @@
 <!-- App Top Bar -->
-<app-top-bar></app-top-bar>
+<app-top-bar #header></app-top-bar>
 
 <!-- Container -->
-<ion-content [fullscreen]="true">
+<ion-content
+    [fullscreen]="true"
+    scrollEvents='true'
+    appHideToolbar
+    [header]='header'>
     <mat-list *ngIf="this.post" class="mb-5">
         <app-post-view
             [post]=post

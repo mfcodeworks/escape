@@ -1,18 +1,7 @@
 .top-bar-logo {
-    display: block;
-    margin: auto;
-    height: 34px;
-}
-.top-bar {
-    position: sticky;
-    position: -webkit-sticky;
-    display: grid;
-    top: 0;
-    z-index: 1000;
-}
-@media (min-width: 992px) {
-    .top-bar {
-        min-width: 100vw;
-        margin-left: calc(-50vw/2);
-    }
+    /* display: block;
+    margin: auto; */
+    height: 50px !important;
+    image-rendering: optimizeQuality;
+    image-rendering: -webkit-optimize-contrast;
 }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { SignedInGuard } from './shared/guards/signed-in.guard';
-import { environment } from '../environments/environment';
 
 const routes: Routes = [
     {

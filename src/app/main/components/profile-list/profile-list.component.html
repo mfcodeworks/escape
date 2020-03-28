@@ -1,6 +1,10 @@
-<app-top-bar></app-top-bar>
+<app-top-bar #header></app-top-bar>
 
-<ion-content [fullscreen]="true">
+<ion-content
+    [fullscreen]="true"
+    scrollEvents='true'
+    appHideToolbar
+    [header]='header'>
     <mat-list *ngIf="profiles.length" class="mb-2">
         <mat-list-item *ngFor="let result of profiles">
             <mat-divider></mat-divider>

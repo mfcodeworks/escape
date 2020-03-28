@@ -1,26 +1,20 @@
 <!-- App Top Bar TODO: Create top search bar -->
-<app-top-bar></app-top-bar>
+<app-top-bar [routerLink]="['/app', 'search']" #header>
+    <ion-buttons slot="start">
+        <i class="ti-search ml-3 mr-2"></i> <span>Search</span>
+    </ion-buttons>
+</app-top-bar>
 
-<!-- <mat-toolbar class="top-bar mat-elevation-z2" [class.app-background-color]="!isDark" color="primary" [routerLink]="['/app', 'search']">
-    <i class="ti-search ml-3 mr-2" [class.icon-black]="!isDark"></i> <span [class.text-black]="!isDark">Search</span>
-    <div class="top-bar-logo logo mr-0"></div>
-</mat-toolbar> -->
-
-<div class="min-h-100">
+<ion-content
+    [fullscreen]="true"
+    scrollEvents='true'
+    appHideToolbar
+    [header]='header'>
     <!-- Recommendations grid -->
     <app-post-preview-grid
         *ngIf="recommendations.length"
         [posts]=recommendations></app-post-preview-grid>
     <p *ngIf="!recommendations.length" class="mat-body error-placeholder mt-4">We couldn't find anything, is this thing turned on?</p>
-</div>
-
-<ion-content [fullscreen]="true">
-    <!-- Recommendations grid -->
-    <app-post-preview-grid
-        *ngIf="recommendations.length"
-        [posts]=recommendations></app-post-preview-grid>
-    <p *ngIf="!recommendations.length" class="mat-body error-placeholder mt-4">We couldn't find anything, is this thing turned on?</p>
-
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMoreRecommendations($event)">
         <ion-infinite-scroll-content

@@ -1,8 +1,12 @@
 <!-- App Top Bar -->
-<app-top-bar></app-top-bar>
+<app-top-bar #header></app-top-bar>
 
 <!-- Infinite scroll content -->
-<ion-content [fullscreen]="true">
+<ion-content
+    [fullscreen]="true"
+    scrollEvents='true'
+    appHideToolbar
+    [header]='header'>
     <mat-list *ngFor="let post of posts">
         <!-- Posts -->
         <app-post-view

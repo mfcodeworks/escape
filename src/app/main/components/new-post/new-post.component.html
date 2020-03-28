@@ -1,9 +1,13 @@
 <!-- App Top Bar -->
-<app-top-bar></app-top-bar>
+<app-top-bar #header></app-top-bar>
 
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
-<ion-content [fullscreen]="true">
+<ion-content
+    [fullscreen]="true"
+    scrollEvents='true'
+    appHideToolbar
+    [header]='header'>
     <mat-list>
         <mat-list-item>
             <img matListAvatar [src]="user.profile.profilePic" class="avatar" [routerLink]="['/app', 'profile', user.profile.username]"/>

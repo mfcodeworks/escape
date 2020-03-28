@@ -12,7 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
-import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ZoomService } from './services/zoom/zoom.service';
 import { ThemeService } from './services/theme/theme.service';
