@@ -1,9 +1,9 @@
 <!-- Comment Menu -->
 <mat-nav-list class="p-0">
-    <mat-list-item *ngIf="data.comment.author.id != data.user.id" class="h-100" (click)="close('report')">
+    <ion-item *ngIf="data.comment.author.id != data.user.id" class="h-100" (click)="close('report')">
         <p class="m-3">Report</p>
-    </mat-list-item>
-    <mat-list-item *ngIf="data.comment.author.id == data.user.id" class="h-100" (click)="close('delete')">
+    </ion-item>
+    <ion-item *ngIf="data.comment.author.id == data.user.id" class="h-100" (click)="close('delete')">
         <p class="m-3">Delete</p>
-    </mat-list-item>
+    </ion-item>
 </mat-nav-list>

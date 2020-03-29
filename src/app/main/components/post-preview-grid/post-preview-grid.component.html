@@ -11,7 +11,9 @@
         </video>
         <img [routerLink]="['/app', 'post', post.id]" [src]="post.media" class="tile" *ngIf="post.type.startsWith('image')"/>
         <div [routerLink]="['/app', 'post', post.id]" class="tile text-tile" *ngIf="post.type.startsWith('text')">
-            <p class="text-tile-content">{{post.caption | slice:0:46}}<span *ngIf="post.caption.length > 35">&hellip;</span></p>
+            <ion-text color='dark'>
+                <p class="text-tile-content">{{post.caption | slice:0:46}}<span *ngIf="post.caption.length > 35">&hellip;</span></p>
+            </ion-text>
         </div>
     </mat-grid-tile>
 </mat-grid-list>

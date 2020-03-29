@@ -1,22 +1,26 @@
 <!-- Comment Display Row -->
 <span *ngIf="preview">
-    <b class="mat-h3 ml-2 mt-1" [routerLink]="['/app', 'post', post.id]">View more comments</b>
+    <ion-text color='dark'>
+        <b class="mat-h3 ml-2 mt-1" [routerLink]="['/app', 'post', post.id]">View more comments</b>
+    </ion-text>
 
     <span *ngIf="post.comments.length" [routerLink]="['/app', 'post', post.id]">
         <div *ngFor="let comment of post.comments; let i = index" class="my-1 ml-3">
             <div *ngIf="i < 2" class="d-flex comment-container mb-1" id="comment{{comment.id}}">
-                <span class="d-flex comment-text-container w-100 mr-3">
-                    <p class="mb-0"><b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b> {{comment.text}}</p>
-                </span>
+                <ion-text color='dark' class="d-flex comment-text-container w-100 mr-3">
+                    <p class="mb-0">
+                        <b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b> {{comment.text}}
+                    </p>
+                </ion-text>
             </div>
         </div>
     </span>
 </span>
 
 <span *ngIf="!preview">
-    <span *ngIf="post.comments.length == 0">
+    <ion-text color='dark' *ngIf="post.comments.length == 0">
         <p class="mat-body error-placeholder mt-3">I've Got Nothing</p>
-    </span>
+    </ion-text>
 
     <span *ngIf="post.comments.length">
         <div *ngFor="let comment of post.comments"
@@ -24,10 +28,10 @@
             id="comment{{comment.id}}"
             (appLonghold)="openDialog(comment)">
             <img [src]="comment.author.profilePic" [routerLink]="['/app', 'profile', comment.author.username]" matAvatar class="avatar mx-2" />
-            <span class="d-flex comment-text-container w-100">
+            <ion-text color='dark' class="d-flex comment-text-container w-100">
                 <p class="mb-0"><b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b>&nbsp;<span [innerHTML]="comment.text | tag" appRouteTransformer></span></p>
                 <p matSmall class="datetime">{{comment.createdAt | dateDiff}}</p>
-            </span>
+            </ion-text>
         </div>
     </span>
 </span>

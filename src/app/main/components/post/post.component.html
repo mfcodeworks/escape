@@ -7,12 +7,12 @@
     scrollEvents='true'
     appHideToolbar
     [header]='header'>
-    <mat-list *ngIf="this.post" class="mb-5">
+    <ion-list *ngIf="this.post" class="mb-5">
         <app-post-view
             [post]=post
             [preview]=false
             (deleted)="location.back()"></app-post-view>
-    </mat-list>
+    </ion-list>
 
     <!-- Comment Input -->
     <!-- TODO: Re-implement mentions -->
@@ -20,7 +20,7 @@
         <mat-form-field appearance="standard" class="w-100" style="top: -8px;">
             <mat-label>Comment&hellip;</mat-label>
             <ng-template #mentionListTemplate let-item="item">
-                <strong>{{item.label}}</strong>
+                <ion-text color='dark'><strong>{{item.label}}</strong></ion-text>
             </ng-template>
             <textarea matInput
                 cdkTextareaAutosize

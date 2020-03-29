@@ -1,49 +1,76 @@
 <!-- App Top Bar -->
 <app-top-bar #header></app-top-bar>
 
-<!-- TODO: Infinite Scroll -->
 <ion-content
     [fullscreen]="true"
     scrollEvents='true'
     appHideToolbar
     [header]='header'>
-    <p *ngIf="!notifications.length" class="mat-body error-placeholder mt-4">We couldn't find anything for you</p>
+    <ion-text *ngIf="!notifications.length" color='dark'>
+        <p class="mat-body error-placeholder mt-4">We couldn't find anything for you</p>
+    </ion-text>
+
     <!-- Display notifications -->
-    <mat-list *ngIf="followRequests.length">
-        <h3 mat-subheader>Follow Requests</h3>
-        <mat-list-item *ngFor="let request of followRequests">
+    <ion-list *ngIf="followRequests.length">
+        <ion-text color='dark'>
+            <h3 mat-subheader>Follow Requests</h3>
+        </ion-text>
+        <ion-item *ngFor="let request of followRequests">
             <mat-divider></mat-divider>
             <img matListAvatar [src]="request.author.profilePic" class="avatar" [routerLink]="['/app', 'profile', request.author.username]"/>
-            <h3 matLine [routerLink]="['/app', 'profile', request.author.username]">
-                <span class="mat-h3 font-weight-bold">{{ request.author.username }}</span>
-            </h3>
-            <i class="ti-check mr-2"
-                (click)="approveFollower(request.author.id)"></i>|
-            <i class="ti-close ml-2"
-                (click)="declineFollower(request.author.id)"></i>
-        </mat-list-item>
-    </mat-list>
-    <mat-list *ngIf="notifications.length" class="mt-2">
-        <h3 mat-subheader>Notifications</h3>
-        <mat-list-item *ngFor="let notification of notifications">
+            <ion-text [routerLink]="['/app', 'profile', request.author.username]" color='dark'>
+                <h3 matLine>
+                    <span class="mat-h3 font-weight-bold">{{ request.author.username }}</span>
+                </h3>
+            </ion-text>
+            <i class="ti-check mr-2" (click)="approveFollower(request.author.id)"></i>|
+            <i class="ti-close ml-2" (click)="declineFollower(request.author.id)"></i>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="notifications.length" class="mt-2">
+        <ion-text color='dark'>
+            <h3 mat-subheader>Notifications</h3>
+        </ion-text>
+        <ion-item *ngFor="let notification of notifications">
             <mat-divider></mat-divider>
+
             <img matListAvatar [src]="notification.from.profilePic" class="avatar" [routerLink]="['/app', 'profile', notification.from.username]"/>
-            <h3 matLine *ngIf="notification.type === 'liked'" [routerLink]="['/app', 'post', notification.postId]">
-                <span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> liked your post
-            </h3>
-            <h3 matLine *ngIf="notification.type === 'reposted'" [routerLink]="['/app', 'post', notification.postId]">
-                <span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> reposted your post<span *ngIf="notification.post.caption">: {{ notification?.post.caption }}</span>
-            </h3>
-            <h3 matLine *ngIf="notification.type === 'commented on'" [routerLink]="['/app', 'post', notification.postId]" fragment="comment{{notification.commentId}}">
-                <span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> commented on your post: {{ notification?.comment.text }}
-            </h3>
-            <h3 matLine *ngIf="notification.type === 'followed'" [routerLink]="['/app', 'profile', notification.from.username]">
-                <span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> followed you
-            </h3>
-            <p matLine matSmall class="datetime">{{ notification.createdAt | dateDiff }}</p>
-        </mat-list-item>
+
+            <ion-text *ngIf="notification.type === 'liked'"
+                [routerLink]="['/app', 'post', notification.postId]"
+                color='dark'>
+                <h3 matLine><span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> liked your post</h3>
+            </ion-text>
+
+            <ion-text *ngIf="notification.type === 'reposted'"
+                [routerLink]="['/app', 'post', notification.postId]"
+                color='dark'>
+                <h3 matLine><span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> reposted your post<span *ngIf="notification.post.caption">: {{ notification?.post.caption }}</span></h3>
+            </ion-text>
+
+            <ion-text *ngIf="notification.type === 'commented on'"
+                [routerLink]="['/app', 'post', notification.postId]"
+                fragment="comment{{notification.commentId}}"
+                color='dark'>
+                <h3 matLine>
+                    <span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> commented on your post: {{ notification?.comment.text }}
+                </h3>
+            </ion-text>
+
+            <ion-text *ngIf="notification.type === 'followed'"
+                [routerLink]="['/app', 'profile', notification.from.username]"
+                color='dark'>
+                <h3 matLine>
+                    <span class="mat-h3 font-weight-bold">{{ notification.from.username }}</span> followed you
+                </h3>
+            </ion-text>
+
+            <ion-text color='dark'>
+                <p matLine matSmall class="datetime">{{ notification.createdAt | dateDiff }}</p>
+            </ion-text>
+        </ion-item>
         <mat-divider></mat-divider>
-    </mat-list>
+    </ion-list>
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMoreNotifications($event)">
         <ion-infinite-scroll-content

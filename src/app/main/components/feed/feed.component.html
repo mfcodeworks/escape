@@ -7,21 +7,21 @@
     scrollEvents='true'
     appHideToolbar
     [header]='header'>
-    <mat-list *ngFor="let post of posts">
+    <div *ngFor="let post of posts">
         <!-- Posts -->
         <app-post-view
             [post]=post
             [preview]=true
             (deleted)="removePost($event)"></app-post-view>
         <mat-divider class="mt-3 mb-1"></mat-divider>
-    </mat-list>
+    </div>
 
-    <span *ngIf="!posts.length">
+    <ion-text color='dark' *ngIf="!posts.length">
         <p class="mat-body error-placeholder mt-4">
             It doesn't look like there's anything here.<br>
             Try following some more active accounts?
         </p>
-    </span>
+    </ion-text>
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMorePosts($event)">
         <ion-infinite-scroll-content

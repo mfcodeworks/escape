@@ -1,39 +1,51 @@
 <div class="profile-container min-h-100">
     <section *ngIf="profile">
         <!-- Profile Info -->
-        <mat-list class="profile-info display-flex flex-row justify-content-around px-2">
-            <mat-list-item class="profile-row">
+        <ion-list class="profile-info display-flex flex-row justify-content-around px-2">
+            <ion-item class="profile-row">
                 <img matListAvatar [src]="profile.profilePic" class="profile-avatar"/>
-            </mat-list-item>
-            <mat-list-item class="profile-row">
-                <h4 mat-line>{{profile.postsCount}}</h4>
-                <p mat-line>Posts</p>
-            </mat-list-item>
+            </ion-item>
+            <ion-item class="profile-row">
+                <ion-text color='dark'>
+                    <h4 mat-line>{{profile.postsCount}}</h4>
+                    <p mat-line>Posts</p>
+                </ion-text>
+            </ion-item>
 
-            <mat-list-item *ngIf="isMe" [routerLink]="['/app', 'followers']" class="profile-row">
-                <h4 mat-line>{{profile.followersCount}}</h4>
-                <p mat-line>Followers</p>
-            </mat-list-item>
-            <mat-list-item *ngIf="!isMe" [routerLink]="['/app', 'profile', profile.username, 'followers']" class="profile-row">
-                <h4 mat-line>{{profile.followersCount}}</h4>
-                <p mat-line>Followers</p>
-            </mat-list-item>
+            <ion-item *ngIf="isMe" [routerLink]="['/app', 'followers']" class="profile-row">
+                <ion-text color='dark'>
+                    <h4 mat-line>{{profile.followersCount}}</h4>
+                    <p mat-line>Followers</p>
+                </ion-text>
+            </ion-item>
+            <ion-item *ngIf="!isMe" [routerLink]="['/app', 'profile', profile.username, 'followers']" class="profile-row">
+                <ion-text color='dark'>
+                    <h4 mat-line>{{profile.followersCount}}</h4>
+                    <p mat-line>Followers</p>
+                </ion-text>
+            </ion-item>
 
-            <mat-list-item *ngIf="isMe" [routerLink]="['/app', 'following']" class="profile-row">
-                <h4 mat-line>{{profile.followingCount}}</h4>
-                <p mat-line>Followings</p>
-            </mat-list-item>
-            <mat-list-item *ngIf="!isMe" [routerLink]="['/app', 'profile', profile.username, 'following']" class="profile-row">
-                <h4 mat-line>{{profile.followingCount}}</h4>
-                <p mat-line>Followings</p>
-            </mat-list-item>
-        </mat-list>
+            <ion-item *ngIf="isMe" [routerLink]="['/app', 'following']" class="profile-row">
+                <ion-text color='dark'>
+                    <h4 mat-line>{{profile.followingCount}}</h4>
+                    <p mat-line>Followings</p>
+                </ion-text>
+            </ion-item>
+            <ion-item *ngIf="!isMe" [routerLink]="['/app', 'profile', profile.username, 'following']" class="profile-row">
+                <ion-text color='dark'>
+                    <h4 mat-line>{{profile.followingCount}}</h4>
+                    <p mat-line>Followings</p>
+                </ion-text>
+            </ion-item>
+        </ion-list>
 
         <!-- Profile Bio -->
-        <p class="mat-body profile-text-container my-3">
-            <span class="profile-username-text">{{profile.username}}</span><br>
-            {{profile.bio}}
-        </p>
+        <ion-text color='dark'>
+            <p class="mat-body profile-text-container my-3">
+                <span class="profile-username-text">{{profile.username}}</span><br>
+                {{profile.bio}}
+            </p>
+        </ion-text>
 
         <!-- Profile Interaction -->
         <button mat-stroked-button class="profile-button" *ngIf="isMe" [routerLink]="['/app', 'profile', profile.username, 'edit']">Edit Profile</button>
@@ -45,6 +57,7 @@
             <a color="primary" [href]="profile.contactInfo.website" target="_blank" mat-raised-button class="profile-contact-button" *ngIf="profile.contactInfo.website">Website</a>
             <a color="primary" [href]="profile.contactInfo.email" mat-raised-button class="profile-contact-button" *ngIf="profile.contactInfo.email">Email</a>
         </span>
+
         <mat-divider class="my-3"></mat-divider>
 
         <!-- Posts grid -->
@@ -53,16 +66,16 @@
             *ngIf="isMe || !profile.settings.privateAccount || isFollowing"
             [posts]=posts></app-post-preview-grid>
 
-        <span *ngIf="!isMe && profile.settings.privateAccount && !isFollowing">
+        <ion-text color='dark' *ngIf="!isMe && profile.settings.privateAccount && !isFollowing">
             <p class="mat-body error-placeholder mt-4">Follow this user to see their posts</p>
-        </span>
+        </ion-text>
 
-        <span *ngIf="!posts.length && (!profile.settings.privateAccount || isFollowing)">
+        <ion-text color='dark' *ngIf="!posts.length && (!profile.settings.privateAccount || isFollowing)">
             <p class="mat-body error-placeholder mt-4">It doesn't look like they posted anything</p>
-        </span>
+        </ion-text>
     </section>
 
-    <span *ngIf="!profile">
+    <ion-text color='dark' *ngIf="!profile">
         <p class="mat-body error-placeholder mt-5">Sorry, I really don't know who that is</p>
-    </span>
+    </ion-text>
 </div>

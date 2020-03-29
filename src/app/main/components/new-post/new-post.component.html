@@ -8,13 +8,13 @@
     scrollEvents='true'
     appHideToolbar
     [header]='header'>
-    <mat-list>
-        <mat-list-item>
+    <ion-list>
+        <ion-item>
             <img matListAvatar [src]="user.profile.profilePic" class="avatar" [routerLink]="['/app', 'profile', user.profile.username]"/>
             <h3 matLine><span [routerLink]="['/app', 'profile', user.profile.username]" class="mat-h3 font-weight-bold">{{user.profile.username}}</span></h3>
             <span><button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">Post</button></span>
-        </mat-list-item>
-    </mat-list>
+        </ion-item>
+    </ion-list>
     <mat-divider></mat-divider>
 
     <!-- Autoresizing textarea -->
@@ -45,20 +45,20 @@
         <!-- Video review -->
         <video *ngIf="currentType === 'Video' && mediaPreview" class="w-100" controls loop autoplay>
             <source [type]="media.type" [src]="mediaPreview">
-            Your device does not support video preview
+            <ion-text color='dark'>Your device does not support video preview</ion-text>
         </video>
 
         <!-- URL Preview -->
         <a [href]="mediaPreview?.url" target="_blank">
             <mat-card *ngIf="currentType === 'URL' && mediaPreview" class="mb-3 mx-3">
                 <mat-card-header *ngIf="mediaPreview?.title">
-                    <mat-card-title class="mb-3">{{ mediaPreview?.title }}</mat-card-title>
+                    <ion-text color='dark'><mat-card-title class="mb-3">{{ mediaPreview?.title }}</mat-card-title></ion-text>
                 </mat-card-header>
                 <mat-divider></mat-divider>
                 <img  *ngIf="mediaPreview?.image" mat-card-image [src]="mediaPreview?.image" [alt]="mediaPreview?.title">
                 <mat-divider></mat-divider>
                 <mat-card-content  *ngIf="mediaPreview?.description">
-                    <p class="mt-3">{{ mediaPreview?.description }}</p>
+                    <ion-text color='dark'><p class="mt-3">{{ mediaPreview?.description }}</p></ion-text>
                 </mat-card-content>
             </mat-card>
         </a>
@@ -66,14 +66,14 @@
 
     <!-- Add Media Button Bar -->
     <div class="pt-5"></div>
-    <mat-list role="list" class="app-background-color add-post-bar w-100 pt-0">
+    <ion-list role="list" class="app-background-color add-post-bar w-100 pt-0">
         <mat-divider></mat-divider>
-        <mat-list-item role="listitem" (click)="openBottomSheet()">
+        <ion-item role="listitem" (click)="openBottomSheet()">
             <i class="ti-gallery grad-color3 mr-1"></i>
             <i class="ti-world grad-color2 mx-1"></i>
             <i class="ti-camera grad-color4 mx-1"></i>
             <i class="ti-video-camera grad-color1 ml-1 mr-2"></i>
             Add to Post
-        </mat-list-item>
-    </mat-list>
+        </ion-item>
+    </ion-list>
 </ion-content>

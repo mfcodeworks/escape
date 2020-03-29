@@ -1,3 +1,10 @@
+/* Avatar sizing */
+.avatar {
+    width: 46px;
+    height: 46px;
+    --border-radius: 50%;
+}
+
 /* Repost Scaling & Colouring */
 .mat-card.repost {
     max-height: 250px;
@@ -6,9 +13,6 @@
     object-fit: cover;
     max-height: 192px;
     border-radius: 5px;
-}
-:not(body.dark-theme) .mat-card {
-    background-color: #ccc;
 }
 
 /* Main Post Sizing */

@@ -1,4 +1,11 @@
+/* Icon Colors */
 .icon-red {
     color: red;
     font-weight: 600;
+}
+
+/* Icon Size */
+[class^='ti-'] {
+    font-size: 28px;
+    width: 40px;
 }

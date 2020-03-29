@@ -5,14 +5,16 @@
     scrollEvents='true'
     appHideToolbar
     [header]='header'>
-    <mat-list *ngIf="profiles.length" class="mb-2">
-        <mat-list-item *ngFor="let result of profiles">
+    <ion-list *ngIf="profiles.length" class="mb-2">
+        <ion-item *ngFor="let result of profiles">
             <mat-divider></mat-divider>
             <img matListAvatar [src]="result.profilePic" class="avatar"  [routerLink]="['/app', 'profile', result.username]"/>
-            <h3 matLine>
-                <span *ngIf="type !== 'blocked'" [routerLink]="['/app', 'profile', result.username]" class="mat-h3 font-weight-bold">{{result.username}}</span>
-                <span *ngIf="type === 'blocked'" (click)="openDialog(result)" class="mat-h3 font-weight-bold">{{result.username}}</span>
-            </h3>
-        </mat-list-item>
-    </mat-list>
+            <ion-text color='dark'>
+                <h3 matLine>
+                    <span *ngIf="type !== 'blocked'" [routerLink]="['/app', 'profile', result.username]" class="mat-h3 font-weight-bold">{{result.username}}</span>
+                    <span *ngIf="type === 'blocked'" (click)="openDialog(result)" class="mat-h3 font-weight-bold">{{result.username}}</span>
+                </h3>
+            </ion-text>
+        </ion-item>
+    </ion-list>
 </ion-content>

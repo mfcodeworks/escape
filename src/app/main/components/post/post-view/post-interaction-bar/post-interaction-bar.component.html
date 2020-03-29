@@ -1,11 +1,8 @@
 <!-- Interaction Button Row -->
-<mat-list-item>
-    <span>
-        <mat-icon mat-list-icon class="ti-heart" [class.icon-red]="isLiked" (dblclick)="likePost($event)"></mat-icon>
-        <mat-icon mat-list-icon class="ti-comment ml-2" [routerLink]="['/app', 'post', post.id]"></mat-icon>
-        <mat-icon *ngIf="!post.author.settings.privateAccount"
-            mat-list-icon
-            class="ti-reload ml-2"
-            (click)="doRepost()"></mat-icon>
-    </span>
-</mat-list-item>
+<div class='d-inline-flex flex-row justify-content-around m-3'>
+    <ion-icon class="ti-heart" [class.icon-red]="isLiked" (dblclick)="likePost($event)"></ion-icon>
+    <ion-icon class="ti-comment ml-2" [routerLink]="['/app', 'post', post.id]"></ion-icon>
+    <ion-icon *ngIf="!post.author.settings.privateAccount"
+        class="ti-reload ml-2"
+        (click)="doRepost()"></ion-icon>
+</div>
