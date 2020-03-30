@@ -10,10 +10,10 @@ export class TagPipe implements PipeTransform {
 
     transform(value: any, ...args: any[]): any {
         value = value.replace(/\B(\#[a-zA-Z\-\_]+\b)/g, (tag: string) => {
-            return `<a href="/hashtag/${tag.substr(1, tag.length)}">${tag}</a>`;
+            return `<a href="/app/hashtag/${tag.substr(1, tag.length)}">${tag}</a>`;
         });
         value = value.replace(/\B(\@[a-zA-Z\-\_]+\b)/g, (tag: string) => {
-            return `<a href="/profile/${tag.substr(1, tag.length)}">${tag}</a>`;
+            return `<a href="/app/profile/${tag.substr(1, tag.length)}">${tag}</a>`;
         });
         return this.sanitizer.bypassSecurityTrustHtml(value);
     }

@@ -1,37 +1,39 @@
 <!-- Comment Display Row -->
-<span *ngIf="preview">
-    <ion-text color='dark'>
-        <b class="mat-h3 ml-2 mt-1" [routerLink]="['/app', 'post', post.id]">View more comments</b>
-    </ion-text>
+<div *ngIf="preview" [routerLink]="['/app', 'post', post.id]">
+    <b class="mat-h3 ml-2 mt-2" ><ion-text color='dark'>View more comments</ion-text></b>
 
-    <span *ngIf="post.comments.length" [routerLink]="['/app', 'post', post.id]">
-        <div *ngFor="let comment of post.comments; let i = index" class="my-1 ml-3">
-            <div *ngIf="i < 2" class="d-flex comment-container mb-1" id="comment{{comment.id}}">
-                <ion-text color='dark' class="d-flex comment-text-container w-100 mr-3">
-                    <p class="mb-0">
-                        <b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b> {{comment.text}}
-                    </p>
+    <div *ngIf="post.comments.length" class='my-2 ml-4'>
+        <ng-container *ngFor="let comment of post.comments.slice(0,2)">
+            <p class='mb-1' id="comment{{comment.id}}">
+                <ion-text color='dark'>
+                    <b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b> {{comment.text}}
                 </ion-text>
-            </div>
-        </div>
-    </span>
-</span>
+            </p>
+        </ng-container>
+    </div>
+</div>
 
-<span *ngIf="!preview">
-    <ion-text color='dark' *ngIf="post.comments.length == 0">
-        <p class="mat-body error-placeholder mt-3">I've Got Nothing</p>
-    </ion-text>
+<ng-container *ngIf="!preview">
+    <p *ngIf="post.comments.length == 0" class="mat-body mt-3">
+        <ion-text color='medium'>I've Got Nothing</ion-text>
+    </p>
 
-    <span *ngIf="post.comments.length">
+    <ng-container *ngIf="post.comments.length">
         <div *ngFor="let comment of post.comments"
             class="d-flex comment-container my-3"
             id="comment{{comment.id}}"
             (appLonghold)="openDialog(comment)">
-            <img [src]="comment.author.profilePic" [routerLink]="['/app', 'profile', comment.author.username]" matAvatar class="avatar mx-2" />
-            <ion-text color='dark' class="d-flex comment-text-container w-100">
-                <p class="mb-0"><b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b>&nbsp;<span [innerHTML]="comment.text | tag" appRouteTransformer></span></p>
-                <p matSmall class="datetime">{{comment.createdAt | dateDiff}}</p>
-            </ion-text>
+            <ion-avatar class='mr-3 avatar'>
+                <img [src]="comment.author.profilePic" [routerLink]="['/app', 'profile', comment.author.username]"/>
+            </ion-avatar>
+            <span class="d-flex comment-text-container w-100">
+                <p class="mb-0">
+                    <ion-text color='dark'>
+                        <b [routerLink]="['/app', 'profile', comment.author.username]">{{comment.author.username}}</b>&nbsp;<span [innerHTML]="comment.text | tag" appRouteTransformer></span>
+                    </ion-text>
+                </p>
+                <p matSmall class="datetime"><ion-text color='medium'>{{comment.createdAt | dateDiff}}</ion-text></p>
+            </span>
         </div>
-    </span>
-</span>
+    </ng-container>
+</ng-container>

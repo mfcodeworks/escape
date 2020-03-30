@@ -121,6 +121,22 @@ html, body {
     }
 }
 
+// ion-toolbar {
+//     --background: url('assets/images/logo-marker.png') no-repeat 100% 100%;
+// }
+// @media (prefers-color-scheme: dark) {
+//     ion-toolbar {
+//         --background: url('assets/images/logo-white.png') no-repeat 100% 100%;
+//     }
+// }
+
+/* Avatar sizing */
+.avatar {
+    width: 46px;
+    height: 46px;
+    --border-radius: 50%;
+}
+
 /* Generic Styling */
 .ptr--icon,
 .ptr--text {

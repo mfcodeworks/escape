@@ -1,7 +1,7 @@
 <!-- Profile Row -->
-<div class='d-flex justify-content-between align-items-center mx-3 my-2'>
+<div class='d-flex justify-content-between align-items-center m-3'>
     <ion-avatar class='mr-3 avatar'>
-        <img matListAvatar [src]="post.author.profilePic" [routerLink]="['/app', 'profile', post.author.username]"/>
+        <img [src]="post.author.profilePic" [routerLink]="['/app', 'profile', post.author.username]"/>
     </ion-avatar>
 
     <h3 class='mb-0' [routerLink]="['/app', 'profile', post.author.username]"><ion-text color='dark'>{{post.author.username}}</ion-text></h3>
@@ -9,22 +9,22 @@
     <a mat-button color="accent" (click)="followUser(post.author.id)" *ngIf="!isFollowed"><ion-text color='dark'>Follow</ion-text></a>
 
     <div class='ml-auto text-right'>
-        <ion-text *ngIf="post.repost" color='dark'><i class="ti-reload"></i></ion-text>
+        <ion-icon *ngIf="post.repost" color='dark' class="ti-reload"></ion-icon>
 
         <span class="post-datetime"><ion-text color='medium'>{{ post.createdAt | dateDiff }}</ion-text></span>
 
-        <ion-text color='dark'><i *ngIf="!post.repost" class="ti-menu-alt ml-3" [matMenuTriggerFor]="menu"></i></ion-text>
+        <ion-icon color='dark' *ngIf="!post.repost" class="ti-menu-alt ml-3" [matMenuTriggerFor]="menu"></ion-icon>
 
         <!-- Post Menu -->
         <mat-menu #menu="matMenu" class="mat-elevation-z2">
             <button mat-menu-item *ngIf="post.author.id == user.id" (click)="deletePost()">
-                <ion-text color='dark'><i class="ti-trash"></i> Delete</ion-text>
+                <ion-icon color='dark' class="ti-trash"> Delete</ion-icon>
             </button>
             <button mat-menu-item *ngIf="post.author.id !== user.id" (click)="reportPost()">
-                <ion-text color='dark'><i class="ti-flag"></i> Report</ion-text>
+                <ion-icon color='dark' class="ti-flag"> Report</ion-icon>
             </button>
             <button mat-menu-item  (click)="copyURL()">
-                <ion-text color='dark'><i class="ti-link"></i> Copy Link</ion-text>
+                <ion-icon color='dark' class="ti-link"> Copy Link</ion-icon>
             </button>
         </mat-menu>
     </div>
@@ -33,22 +33,27 @@
 <!-- Post Content -->
 <div *ngIf="post.type.startsWith('image')">
     <!-- Caption Row -->
-    <span *ngIf="post.caption && displayRepost">
-        <ion-text color='dark'><p class="mat-body">{{post.caption}}</p></ion-text>
-    </span>
+    <ng-container *ngIf="post.caption && displayRepost">
+        <p class="mx-5 my-2">
+            <ion-text color='dark'>
+                <span [innerHTML]="post.caption | tag" appRouteTransformer></span>
+            </ion-text>
+        </p>
+    </ng-container>
 
     <!-- Post Media -->
-    <img class="w-100 m-0" [src]="post.media" (dblclick)="likePost($event)"/>
+    <ion-img class="w-100 m-0" [src]="post.media" (dblclick)="likePost($event)"></ion-img>
 </div>
 
-<!-- Post Media -->
 <div *ngIf="post.type.startsWith('video')">
     <!-- Caption Row -->
-    <span *ngIf="post.caption && displayRepost">
-        <ion-text color='dark'>
-            <p class="mat-body"><span [innerHTML]="post.caption | tag" appRouteTransformer></span></p>
-        </ion-text>
-    </span>
+    <ng-container *ngIf="post.caption && displayRepost">
+        <p class="mx-5 my-2">
+            <ion-text color='dark'>
+                <span [innerHTML]="post.caption | tag" appRouteTransformer></span>
+            </ion-text>
+        </p>
+    </ng-container>
 
     <!-- Post Media -->
     <video class="post-image"
@@ -68,7 +73,7 @@
 <div *ngIf="post.type == 'text' && (!post.repost || !displayRepost)">
     <mat-divider></mat-divider>
     <!-- Caption as Post -->
-    <span class="text-post-container" (dblclick)="likePost($event)">
+    <p class="text-post-container" (dblclick)="likePost($event)">
         <ion-text color='dark'>
             <span class="text-post my-3"
                 [class.text-post-concat]="post.concat"
@@ -76,15 +81,19 @@
                 [innerHTML]="post.caption | tag"
                 appRouteTransformer></span>
         </ion-text>
-    </span>
+    </p>
     <mat-divider *ngIf="displayRepost"></mat-divider>
 </div>
 
 <div *ngIf="post.type.startsWith('url')">
     <!-- Caption Row -->
-    <span *ngIf="post.caption && displayRepost">
-        <ion-text color='dark'><p class="mat-body">{{post.caption}}</p></ion-text>
-    </span>
+    <ng-container *ngIf="post.caption && displayRepost">
+        <p class="mx-5 my-2">
+            <ion-text color='dark'>
+                <span [innerHTML]="post.caption | tag" appRouteTransformer></span>
+            </ion-text>
+        </p>
+    </ng-container>
 
     <!-- URL Preview -->
     <a [href]="mediaPreview?.url" target="_blank" (dblclick)="likePost($event)">
@@ -106,9 +115,13 @@
 
 <div *ngIf="post.type == 'text' && post.repost && displayRepost">
     <!-- Caption Row -->
-    <span *ngIf="post.caption" class="mb-2">
-        <ion-text color='dark'><p class="mat-body m-0">{{post.caption}}</p></ion-text>
-    </span>
+    <ng-container *ngIf="post.caption">
+        <p class="mx-3 my-4">
+            <ion-text color='dark'>
+                <span [innerHTML]="post.caption | tag" appRouteTransformer></span>
+            </ion-text>
+        </p>
+    </ng-container>
 </div>
 
 <div *ngIf="post.repost && displayRepost"
