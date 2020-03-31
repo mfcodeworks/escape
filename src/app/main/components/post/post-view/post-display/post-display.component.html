@@ -13,20 +13,7 @@
 
         <span class="post-datetime"><ion-text color='medium'>{{ post.createdAt | dateDiff }}</ion-text></span>
 
-        <ion-icon color='dark' *ngIf="!post.repost" class="ti-menu-alt ml-3" [matMenuTriggerFor]="menu"></ion-icon>
-
-        <!-- Post Menu -->
-        <mat-menu #menu="matMenu" class="mat-elevation-z2">
-            <button mat-menu-item *ngIf="post.author.id == user.id" (click)="deletePost()">
-                <ion-icon color='dark' class="ti-trash"> Delete</ion-icon>
-            </button>
-            <button mat-menu-item *ngIf="post.author.id !== user.id" (click)="reportPost()">
-                <ion-icon color='dark' class="ti-flag"> Report</ion-icon>
-            </button>
-            <button mat-menu-item  (click)="copyURL()">
-                <ion-icon color='dark' class="ti-link"> Copy Link</ion-icon>
-            </button>
-        </mat-menu>
+        <ion-icon color='dark' class="ti-menu-alt ml-3" (click)='showMenu($event)'></ion-icon>
     </div>
 </div>
 

@@ -44,6 +44,7 @@ import { TagPipe } from './pipes/tag.pipe';
 import { LongholdDirective } from '../shared/directives/longhold.directive';
 import { RouteTransformerDirective } from '../shared/directives/route-transformer.directive';
 import { HideToolbarDirective } from '../shared/directives/hide-toolbar.directive';
+import { PostOptionsComponent } from './components/post/post-view/post-options/post-options.component';
 
 @NgModule({
     imports: [
@@ -84,14 +85,16 @@ import { HideToolbarDirective } from '../shared/directives/hide-toolbar.directiv
         LongholdDirective,
         ProfileListComponent,
         FloatingHeartComponent,
-        HideToolbarDirective
+        HideToolbarDirective,
+        PostOptionsComponent
     ],
     entryComponents: [
         CommentDialogComponent,
         ProfileDialogComponent,
         PostBottomSheetComponent,
         BlockedDialogComponent,
-        FloatingHeartComponent
+        FloatingHeartComponent,
+        PostOptionsComponent
     ],
     providers: [
         FeedResolver,
@@ -132,7 +135,8 @@ import { HideToolbarDirective } from '../shared/directives/hide-toolbar.directiv
         TagPipe,
         PostLikesComponent,
         ProfileDisplayComponent,
-        ProfileEditComponent
+        ProfileEditComponent,
+        PostOptionsComponent
     ]
 })
 export class MainModule { }

@@ -3,6 +3,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Post } from '../../../../core/post';
 import { Profile } from '../../../../core/profile';
 import { UrlPreviewService } from '../../../../../services/url-preview/url-preview.service';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { PostOptionsComponent } from '../post-options/post-options.component';
 
 @Component({
     selector: 'app-post-display',
@@ -24,7 +26,10 @@ export class PostDisplayComponent implements OnInit {
     // TODO: On hold copy post caption
     // TODO: On dblclick play overlapping heart gif
 
-    constructor(private urlPreview: UrlPreviewService) {}
+    constructor(
+        private urlPreview: UrlPreviewService,
+        private modals: PopoverController
+    ) {}
 
     ngOnInit() {
         if (this.post.type === 'url') {
@@ -59,6 +64,44 @@ export class PostDisplayComponent implements OnInit {
 
     followUser(id: number) {
         this.follow.emit(id);
+    }
+
+    async showMenu(ev: Event): Promise<void> {
+        // Create menu
+        const menu = await this.modals.create({
+            animated: true,
+            backdropDismiss: true,
+            component: PostOptionsComponent,
+            componentProps: {
+                post: this.post,
+                user: this.user
+            },
+            event: ev,
+            translucent: true
+        });
+
+        // Add on dismiss handler
+        menu.onDidDismiss().then(({ data }) => {
+            switch (data) {
+                case 'copy':
+                    this.copyURL();
+                    break;
+
+                case 'report':
+                    this.reportPost();
+                    break;
+
+                case 'delete':
+                    this.deletePost();
+                    break;
+
+                default:
+                    return;
+            }
+        });
+
+        // Return menu
+        return await menu.present();
     }
 
     deletePost() {

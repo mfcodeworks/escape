@@ -1,0 +1,14 @@
+<ion-list no-padding no-margin color='dark'>
+    <ion-item (click)="deletePost()" *ngIf="post.author.id == user.id">
+        <ion-icon slot='end' color='dark' class="ti-trash"></ion-icon>
+        <ion-label>Delete</ion-label>
+    </ion-item>
+    <ion-item (click)="reportPost()" *ngIf="post.author.id !== user.id">
+        <ion-icon slot='end' color='dark' class="ti-flag"></ion-icon>
+        <ion-label>Report</ion-label>
+    </ion-item>
+    <ion-item (click)="copyURL()">
+        <ion-icon slot='end' color='dark' class="ti-link"></ion-icon>
+        <ion-label>Copy Link</ion-label>
+    </ion-item>
+</ion-list>
